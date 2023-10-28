@@ -14,7 +14,11 @@ const itemsArr: menuItems = [
 
 function createLiEl(element: Item): React.ReactNode {
   return (
-    <li className="p-2 cursor-pointer hover:bg-slate-700">
+    <li
+      className="duration-[400ms] ease-in-out transition-colors
+      p-2 cursor-pointer 
+     hover:bg-slate-700"
+    >
       <Link href={element.link}>{element.title}</Link>
     </li>
   );
