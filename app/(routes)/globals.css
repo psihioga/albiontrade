@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+thead + tbody tr:first-child {
+    background-color: blueviolet;
+}
