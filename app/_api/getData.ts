@@ -100,10 +100,22 @@ const ore = [
 ];
 
 function filterData(data: unknown) {
+
+    if (data instanceof Array) {
+        // const filtered = data.filter(el=> {
+
+        // }) 
+        console.log('data is array')
+        return data;
+    }
+   
+
+
   return data;
 }
 
 export async function GetData(params: dataType) {
+
   const locationsList = locations
     .reduce((acc, cur) => acc + cur.Name + ",", "")
     .slice(0, -1);
@@ -111,6 +123,7 @@ export async function GetData(params: dataType) {
   console.log(
     `${url}${items}?${date}&${locationsList}&${qualities}&${timescale}`
   );
+
   const response = await fetch(`${url}${items}?${date}`);
   if (!response.ok) {
     throw new Error(
@@ -118,7 +131,7 @@ export async function GetData(params: dataType) {
     );
   }
 
-  return filterData(response.json());
+  return response.json();
 }
 
 export async function GetBlobData(params: dataType | void) {
@@ -126,8 +139,8 @@ export async function GetBlobData(params: dataType | void) {
   const data = await new Promise((resolve) => {
     setTimeout(() => {
       resolve(blob);
-    }, 150);
+    }, 0);
   });
-
-  return data;
+  return filterData(data);
+  
 }
