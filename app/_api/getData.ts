@@ -15,27 +15,14 @@ const timescale = "time-scale=6";
 
 
 
-function filterData(data: unknown) {
 
-    if (data instanceof Array) {
-        // const filtered = data.filter(el=> {
-
-        // }) 
-        console.log('data is array')
-        return data;
-    }
-   
-
-
-  return data;
-}
 
 export async function GetData(params: dataType) {
 
   const locationsList = locations
     .reduce((acc, cur) => acc + cur.Name + ",", "")
     .slice(0, -1);
-  console.log("starting fetch");
+  
   console.log(
     `${url}${items}?${date}&${locationsList}&${qualities}&${timescale}`
   );
@@ -51,12 +38,12 @@ export async function GetData(params: dataType) {
 }
 
 export async function GetBlobData(params: dataType | void) {
-  console.log("starting fetch");
+
   const data = await new Promise((resolve) => {
     setTimeout(() => {
       resolve(blob);
     }, 0);
   });
-  return filterData(data);
+  return data;
   
 }

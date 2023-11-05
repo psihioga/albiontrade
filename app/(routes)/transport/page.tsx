@@ -6,6 +6,26 @@ import { GetData, GetBlobData } from "@/api/getData";
 import { TownSelect } from "@/components/elements/select/transport";
 import { Table } from "@/components/elements/tables/transport";
 
+import { locations } from "@/api/locations";
+
+
+function filterData(data: any) {
+
+  if (data instanceof Array) {
+
+      const locationsSet = new Set(locations.map(el => el.Name))
+      const filtered = data.filter(el=> {
+        if (locationsSet.has(el.location)) return true
+      }) 
+
+      return filtered;
+  }
+ 
+
+
+return data;
+}
+
 export default () => {
   const effectRan = useRef(false);
   const [data, setData] = useState([
@@ -19,11 +39,10 @@ export default () => {
 
   useEffect(() => {
     if (effectRan.current) {
-      console.log("effect Ran");
       const getData = async () => {
         const response: any = await GetBlobData();
         console.log(response);
-        setData(response);
+        setData(filterData(response));
       };
 
       getData();
