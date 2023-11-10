@@ -2,7 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-
 thead + tbody tr:first-child {
-    background-color: blueviolet;
+  background-color: blueviolet;
+}
+
+tr {
+  opacity: 1;
+  border-spacing: 1;
+  transition: all .5s ease-in-out;
+}
+
+td {
+  line-height: inherit;
+  padding: inherit;
+  border-width: 1px;
+  transition: all .5s ease-in-out;
+}
+
+
+
+.hide tr {
+  opacity: 0;
+  border-spacing: 0;
+}
+
+.hide td {
+  line-height: 0;
+  padding: 0;
+  border-width: 0;
+}
+
+.hide tr:first-child {
+  opacity: 1;
+  border-width: 1px;
+}
+.hide tr:first-child td {
+  line-height: inherit;
+  padding: inherit;
 }

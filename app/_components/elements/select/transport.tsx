@@ -1,25 +1,40 @@
-type city = {
-  id: string;
-  value: string;
-  text: string;
-};
+import { Item } from "@/types/api";
 
-const cities: city[] = [
-  { id: "FortSterling", value: "FortSterling", text: "FortSterling" },
-  { id: "Martlock", value: "Martlock", text: "Martlock" },
-  { id: "Lymhurst", value: "Lymhurst", text: "Lymhurst" },
-  { id: "Thetford", value: "Thetford", text: "Thetford" },
-  { id: "Caerleon", value: "Caerleon", text: "Caerleon" },
-  { id: "Brecilien", value: "Brecilien", text: "Brecilien" }
-];
-
-export const TownSelect = (props: {}): React.ReactElement => {
-  const label = <label htmlFor="town-select">Ввберите город:</label>;
+export const TownSelect = (props: { data: Item[] }): React.ReactElement => {
+  const cities = props.data;
+  const label = <label htmlFor="town-select">Выберите город:</label>;
 
   const select = (
     <select name="towns" id="town-select">
       <option value="">--Город говна--</option>
-      {cities.map(city => <option key={city.id} value={city.value}>{city.text}</option>)}
+      {cities.map((city) => (
+        <option key={city.UniqueName} value={city.Index}>
+          {city.Name}
+        </option>
+      ))}
+    </select>
+  );
+
+  return (
+    <>
+      {label}
+      {select}
+    </>
+  );
+};
+
+export const ItemSelect = (props: { data: Item[] }): React.ReactElement => {
+  const items = props.data;
+  const label = <label htmlFor="item-select">Выберите говно:</label>;
+
+  const select = (
+    <select name="items" id="item-select">
+      <option value="">--Не выбрано--</option>
+      {items.map((item) => (
+        <option key={item.UniqueName} value={item.Index}>
+          {item.Name}
+        </option>
+      ))}
     </select>
   );
 

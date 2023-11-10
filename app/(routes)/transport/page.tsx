@@ -3,27 +3,23 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { GetData, GetBlobData } from "@/api/getData";
-import { TownSelect } from "@/components/elements/select/transport";
-import { Table } from "@/components/elements/tables/transport";
+import { ItemSelect, TownSelect } from "@/components/elements/select/transport";
+import { Table } from "@/_components/elements/tables/transport/table";
 
 import { locations } from "@/api/locations";
-
+import { ore } from "@/api/oreList";
 
 function filterData(data: any) {
-
   if (data instanceof Array) {
+    const locationsSet = new Set(locations.map((el) => el.Name));
+    const filtered = data.filter((el) => {
+      if (locationsSet.has(el.location)) return true;
+    });
 
-      const locationsSet = new Set(locations.map(el => el.Name))
-      const filtered = data.filter(el=> {
-        if (locationsSet.has(el.location)) return true
-      }) 
-
-      return filtered;
+    return filtered;
   }
- 
 
-
-return data;
+  return data;
 }
 
 export default () => {
@@ -40,7 +36,7 @@ export default () => {
   useEffect(() => {
     if (effectRan.current) {
       const getData = async () => {
-        const response: any = await GetBlobData();
+        const response: any = await GetData();
         console.log(response);
         setData(filterData(response));
       };
@@ -55,7 +51,8 @@ export default () => {
   return (
     <div>
       <h1>Транспорт</h1>
-      <TownSelect />
+      <TownSelect data={locations} />
+      <ItemSelect data={ore} />
       <Table elements={data} />
     </div>
   );

@@ -8,7 +8,7 @@ type dataType = Item[];
 
 const url = "https://west.albion-online-data.com/api/v2/stats/history/";
 const items = "T4_RUNE,T5_RUNE,T6_RUNE,T7_RUNE,T8_RUNE";
-const date = "date=10-30-2023&end_date=10-31-2023";
+const date = "date=11-08-2023&end_date=11-10-2023";
 const qualities = "qualities=0";
 const timescale = "time-scale=6";
 
@@ -17,7 +17,7 @@ const timescale = "time-scale=6";
 
 
 
-export async function GetData(params: dataType) {
+export async function GetData(params: dataType | void) {
 
   const locationsList = locations
     .reduce((acc, cur) => acc + cur.Name + ",", "")
