@@ -2,28 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
 thead + tbody tr:first-child {
   background-color: blueviolet;
 }
 
 tr {
   opacity: 1;
-  border-spacing: 1;
-  transition: all .5s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 td {
   line-height: inherit;
   padding: inherit;
   border-width: 1px;
-  transition: all .5s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
-
-
 
 .hide tr {
   opacity: 0;
-  border-spacing: 0;
 }
 
 .hide td {

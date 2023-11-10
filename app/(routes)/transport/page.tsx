@@ -4,7 +4,8 @@ import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { GetData, GetBlobData } from "@/api/getData";
 import { ItemSelect, TownSelect } from "@/components/elements/select/transport";
-import { Table } from "@/_components/elements/tables/transport/table";
+import { Table } from "@/components/elements/tables/transport/table";
+import { elementType } from "@/types/transport";
 
 import { locations } from "@/api/locations";
 import { ore } from "@/api/oreList";
@@ -22,9 +23,17 @@ function filterData(data: any) {
   return data;
 }
 
+function filterByLocation(city: string, data: elementType[]) {
+  const mainCity = locations.find((el) => el.Index === city);
+
+  const filtered = data.filter((el) => el.location === mainCity?.Name);
+
+  return filtered;
+}
+
 export default () => {
   const effectRan = useRef(false);
-  const [data, setData] = useState([
+  const [data, setData] = useState<elementType[]>([
     {
       location: "nothing",
       item_id: "tosee",
@@ -33,12 +42,24 @@ export default () => {
     },
   ]);
 
+  const [filteredData, setFilteredData] = useState<elementType[]>([
+    {
+      location: "nothing",
+      item_id: "tosee",
+      quality: 1,
+      data: [],
+    },
+  ]);
+
+  const [city, setCity] = useState<string>("");
+
   useEffect(() => {
     if (effectRan.current) {
       const getData = async () => {
         const response: any = await GetData();
-        console.log(response);
-        setData(filterData(response));
+
+        setData(response);
+        setFilteredData(filterData(response));
       };
 
       getData();
@@ -48,12 +69,26 @@ export default () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (effectRan.current) {
+      if (!city.length) {
+        setFilteredData(filterData(data));
+        return;
+      }
+
+      const filtered = filterByLocation(city, data);
+      setFilteredData(filtered);
+    }
+  }, [city]);
+
   return (
     <div>
       <h1>Транспорт</h1>
-      <TownSelect data={locations} />
-      <ItemSelect data={ore} />
-      <Table elements={data} />
+      <div className="p-4">
+        <TownSelect data={locations} setCity={setCity} />
+        <ItemSelect data={ore} />
+      </div>
+      <Table elements={filteredData} />
     </div>
   );
 };
