@@ -31,6 +31,9 @@ function filterByLocation(city: string, data: elementType[]) {
   return filtered;
 }
 
+ 
+const mode = process.env.MODE;
+
 export default function Transport() {
   const effectRan = useRef(false);
   const [data, setData] = useState<elementType[]>([
@@ -54,7 +57,21 @@ export default function Transport() {
   const [city, setCity] = useState<string>("");
 
   useEffect(() => {
-    if (effectRan.current) {
+
+    if (mode === "development") {
+      if (effectRan.current) {
+        const getData = async () => {
+          const response: any = await GetData();
+  
+          setData(response);
+        };
+  
+        getData();
+      }
+      return () => {
+        effectRan.current = true;
+      };
+    } else {
       const getData = async () => {
         const response: any = await GetData();
 
@@ -63,13 +80,23 @@ export default function Transport() {
 
       getData();
     }
-    return () => {
-      effectRan.current = true;
-    };
+
+    
   }, []);
 
   useEffect(() => {
-    if (effectRan.current) {
+
+    if (mode === "development") {
+      if (effectRan.current) {
+        if (!city.length) {
+          setFilteredData(filterData(data));
+          return;
+        }
+  
+        const filtered = filterByLocation(city, data);
+        setFilteredData(filtered);
+      }
+    } else {
       if (!city.length) {
         setFilteredData(filterData(data));
         return;
@@ -78,6 +105,8 @@ export default function Transport() {
       const filtered = filterByLocation(city, data);
       setFilteredData(filtered);
     }
+
+    
   }, [city, data]);
 
   return (
