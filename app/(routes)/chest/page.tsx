@@ -1,4 +1,4 @@
-export default () => {
+export default function Chest() {
     return (
         <div>
             Хабар

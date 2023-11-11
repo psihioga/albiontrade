@@ -52,7 +52,6 @@ const LiElement = (props: { element: Item }): React.ReactElement => {
 
   return (
     <li
-      key={element.title}
       className="duration-100 ease-in-out transition-colors
             p-2 cursor-pointer 
            hover:bg-slate-700 hover:text-cyan-100"
@@ -62,7 +61,7 @@ const LiElement = (props: { element: Item }): React.ReactElement => {
   );
 };
 
-const ElementsRender = (props: { items: menuItems }) => {
+const ElementsRender = function (props: { items: menuItems }) {
   const { items } = { ...props };
 
   const elements: React.ReactElement[] = items.map((el) => {
@@ -88,7 +87,7 @@ const ElementsRender = (props: { items: menuItems }) => {
   return elements;
 };
 
-export default () => {
+export default function Sidebar() {
   return (
     <aside className="max-w-140 bg-green-300">
       <nav>

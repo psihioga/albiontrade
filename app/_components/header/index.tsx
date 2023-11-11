@@ -21,7 +21,7 @@ const LiElements = (props: { items: menuItems }) => {
   return items.map((el) => createLiEl(el));
 };
 
-export default () => {
+export default function Header() {
   return (
     <header className="flex flex-row flex-wrap content-center w-full justify-center mt-2 bg-slate-500">
       <nav>

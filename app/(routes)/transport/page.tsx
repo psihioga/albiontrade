@@ -31,7 +31,7 @@ function filterByLocation(city: string, data: elementType[]) {
   return filtered;
 }
 
-export default () => {
+export default function Transport() {
   const effectRan = useRef(false);
   const [data, setData] = useState<elementType[]>([
     {
@@ -59,7 +59,6 @@ export default () => {
         const response: any = await GetData();
 
         setData(response);
-        setFilteredData(filterData(response));
       };
 
       getData();
@@ -79,7 +78,7 @@ export default () => {
       const filtered = filterByLocation(city, data);
       setFilteredData(filtered);
     }
-  }, [city]);
+  }, [city, data]);
 
   return (
     <div>
