@@ -82,7 +82,7 @@ const ElementsRender = (props: { items: menuItems }) => {
       );
     }
 
-    return <LiElement element={el} />;
+    return <LiElement element={el} key={el.title}/>;
   });
 
   return elements;
