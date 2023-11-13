@@ -3,9 +3,13 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { GetData, GetBlobData } from "@/api/getData";
-import { ItemSelect, TownSelect } from "@/components/elements/select/transport";
-import { Table } from "@/components/elements/tables/transport/table";
+import { ItemSelect, TownSelect } from "@/components/ui/select/transport";
+import { Table } from "@/components/ui/tables/transport/table";
 import { elementType } from "@/types/transport";
+import { Button } from "@/components/shadcn/ui/button"
+import { Calendar } from "@/components/shadcn/ui/calendar"
+
+import { DatePickerWithRange } from "@/components/ui/calendar/calendar";
 
 import { locations } from "@/api/locations";
 import { ore } from "@/api/oreList";
@@ -44,7 +48,7 @@ export default function Transport() {
       data: [],
     },
   ]);
-
+  
   const [filteredData, setFilteredData] = useState<elementType[]>([
     {
       location: "nothing",
@@ -61,7 +65,7 @@ export default function Transport() {
     if (mode === "development") {
       if (effectRan.current) {
         const getData = async () => {
-          const response: any = await GetData();
+          const response: any = await GetBlobData();
   
           setData(response);
         };
@@ -115,6 +119,10 @@ export default function Transport() {
       <div className="p-4">
         <TownSelect data={locations} setCity={setCity} />
         <ItemSelect data={ore} />
+        <Button>Click me</Button>
+        <br/>
+       
+  <DatePickerWithRange />
       </div>
       <Table elements={filteredData} />
     </div>

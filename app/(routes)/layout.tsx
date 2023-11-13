@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Oswald } from 'next/font/google'
 import './globals.css'
+
+import { cn } from "@/lib/utils"
+
 import Footer from "../_components/footer";
 import Header from "../_components/header";
 
