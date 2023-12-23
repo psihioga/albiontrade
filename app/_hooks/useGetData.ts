@@ -53,7 +53,7 @@ export default function useGetData() {
 
       getData();
     }
-  }, []);
+  }, [mode]);
 
   useEffect(() => {
     if (mode === "development") {
@@ -75,7 +75,7 @@ export default function useGetData() {
       const filtered = filterByLocation(city, data, locations);
       setFilteredData(filtered);
     }
-  }, [city, data]);
+  }, [city, data, mode]);
 
   return {
     locations,
