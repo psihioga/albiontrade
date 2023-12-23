@@ -4,7 +4,7 @@ import { Table } from "@/components/ui/tables/transport/table";
 import { Button } from "@/components/shadcn/ui/button";
 import { DatePickerWithRange } from "@/components/ui/calendar/calendar";
 
-import useGetData from "@/hooks/getData";
+import useGetData from "@/_hooks/useGetData";
 
 export default function Transport() {
   const { locations, setCity, ore, filteredData } = useGetData();
