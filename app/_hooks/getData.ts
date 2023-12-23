@@ -3,23 +3,8 @@ import { elementType } from "@/types/transport";
 import { GetData, GetBlobData } from "@/api/getData";
 import { locations } from "@/api/locations";
 import { ore } from "@/api/oreList";
+import { filterData, filterByLocation } from "@/api/filters";
 
-function filterData(data: elementType[]) {
-    const locationsSet = new Set(locations.map((el) => el.Name));
-    const filtered = data.filter((el) => {
-      if (locationsSet.has(el.location)) return true;
-    });
-
-    return filtered;
-}
-
-function filterByLocation(city: string, data: elementType[]) {
-  const mainCity = locations.find((el) => el.Index === city);
-
-  const filtered = data.filter((el) => el.location === mainCity?.Name);
-
-  return filtered;
-}
 export default function getData() {
   const [data, setData] = useState<elementType[]>([
     {
@@ -74,20 +59,20 @@ export default function getData() {
     if (mode === "development") {
       if (effectRan.current) {
         if (!city.length) {
-          setFilteredData(filterData(data));
+          setFilteredData(filterData(data, locations));
           return;
         }
 
-        const filtered = filterByLocation(city, data);
+        const filtered = filterByLocation(city, data, locations);
         setFilteredData(filtered);
       }
     } else {
       if (!city.length) {
-        setFilteredData(filterData(data));
+        setFilteredData(filterData(data, locations));
         return;
       }
 
-      const filtered = filterByLocation(city, data);
+      const filtered = filterByLocation(city, data, locations);
       setFilteredData(filtered);
     }
   }, [city, data]);
