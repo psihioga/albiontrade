@@ -5,7 +5,7 @@ import { locations } from "@/api/locations";
 import { ore } from "@/api/oreList";
 import { filterData, filterByLocation } from "@/api/filters";
 
-export default function getData() {
+export default function useGetData() {
   const [data, setData] = useState<elementType[]>([
     {
       location: "nothing",
