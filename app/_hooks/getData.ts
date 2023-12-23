@@ -4,17 +4,13 @@ import { GetData, GetBlobData } from "@/api/getData";
 import { locations } from "@/api/locations";
 import { ore } from "@/api/oreList";
 
-function filterData(data: any) {
-  if (data instanceof Array) {
+function filterData(data: elementType[]) {
     const locationsSet = new Set(locations.map((el) => el.Name));
     const filtered = data.filter((el) => {
       if (locationsSet.has(el.location)) return true;
     });
 
     return filtered;
-  }
-
-  return data;
 }
 
 function filterByLocation(city: string, data: elementType[]) {
