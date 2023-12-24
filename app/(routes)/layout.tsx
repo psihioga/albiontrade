@@ -7,6 +7,13 @@ import { cn } from "@/lib/utils"
 import Footer from "../_components/footer";
 import Header from "../_components/header";
 
+const items = [
+  { title: "Крафт", link: "craft"},
+  { title: "Перевозка", link: "transport" },
+  { title: "Данж", link: "dungeon" },
+]
+
+
 const oswald = Oswald({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -22,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={oswald.className}>
-        <Header />
+        <Header items={items}/>
         {children}
         <Footer />
       </body>
